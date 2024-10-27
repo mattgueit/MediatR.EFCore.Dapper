@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Api", "TrainTickets.Api\TrainTickets.Api.csproj", "{FD7DACEF-A156-4B2F-9AB0-4310F73C7F68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Api", "src\TrainTickets.Api\TrainTickets.Api.csproj", "{FD7DACEF-A156-4B2F-9AB0-4310F73C7F68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Infrastructure", "TrainTickets.Infrastructure\TrainTickets.Infrastructure.csproj", "{D0F126FC-FED6-457E-ACA0-10B2D237DD86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Infrastructure", "src\TrainTickets.Infrastructure\TrainTickets.Infrastructure.csproj", "{D0F126FC-FED6-457E-ACA0-10B2D237DD86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Core", "TrainTickets.Core\TrainTickets.Core.csproj", "{84039E35-BF8C-47E3-A715-CA858ED0AB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainTickets.Core", "src\TrainTickets.Core\TrainTickets.Core.csproj", "{84039E35-BF8C-47E3-A715-CA858ED0AB25}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{00F4D493-9192-4B0B-A54D-5F855C7BE154}"
 EndProject
