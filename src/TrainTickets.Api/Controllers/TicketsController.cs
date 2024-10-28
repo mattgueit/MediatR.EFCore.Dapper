@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TrainTickets.Core.Trains;
+using TrainTickets.Core.Domain.Tickets;
 using TrainTickets.Infrastructure.Storage.Database.EntityFramework;
 
 namespace TrainTickets.Api.Controllers
@@ -8,28 +8,33 @@ namespace TrainTickets.Api.Controllers
     [Route("[controller]")]
     public class TicketsController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
+        private readonly ITicketsRepository _ticketsRepository;
+        private readonly AppDbContext _appDbContext;
         private readonly ILogger<TicketsController> _logger;
 
-        public TicketsController(ILogger<TicketsController> logger)
+        public TicketsController(
+            ITicketsRepository ticketsRepository,
+            AppDbContext appDbContext,
+            ILogger<TicketsController> logger
+        )
         {
+            _ticketsRepository = ticketsRepository;
+            _appDbContext = appDbContext;
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("{ticketId}", Name = "GetTicket")]
+        public async Task<Ticket> Get([FromRoute] int ticketId)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await this._ticketsRepository.GetByIdAsync(ticketId) ?? throw new Exception($"No such ticket with Id {ticketId}.");
+        }
+
+        [HttpPost(Name = "CreateTicket")]
+        public void Create([FromBody] Ticket ticket)
+        {
+            _appDbContext.Tickets.Add(ticket);
+
+            _appDbContext.SaveChanges();
         }
     }
 }

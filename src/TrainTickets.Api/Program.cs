@@ -1,4 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using TrainTickets.Core.Domain.Journeys;
+using TrainTickets.Core.Domain.Passengers;
+using TrainTickets.Core.Domain.Tickets;
+using TrainTickets.Core.Domain.Trains;
+using TrainTickets.Core.Storage.Database;
+using TrainTickets.Infrastructure.Domain.Journeys;
+using TrainTickets.Infrastructure.Domain.Passengers;
+using TrainTickets.Infrastructure.Domain.Tickets;
+using TrainTickets.Infrastructure.Domain.Trains;
+using TrainTickets.Infrastructure.Storage.Database;
 using TrainTickets.Infrastructure.Storage.Database.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +28,19 @@ builder.Services.AddDbContext<AppDbContext>(optionsBuilder =>
         b => b.MigrationsAssembly("TrainTickets.Api")
     );
 });
+
+builder.Services.AddSingleton<IDbConnectionFactory>(_ =>
+{
+    return new NpgsqlDbConnectionFactory(builder.Configuration["DbConnectionString"]!);
+});
+
+
+// Services
+builder.Services.AddScoped<IJourneyRepository, JourneyRepository>();
+builder.Services.AddScoped<IPassengerRepository, PassengersRepository>();
+builder.Services.AddScoped<ITicketsRepository, TicketsRepository>();
+builder.Services.AddScoped<ITrainsRepository, TrainsRepository>();
+
 
 var app = builder.Build();
 

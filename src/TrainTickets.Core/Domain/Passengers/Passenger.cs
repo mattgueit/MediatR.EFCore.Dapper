@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace TrainTickets.Core.Passengers
+namespace TrainTickets.Core.Domain.Passengers
 {
     public class Passenger
     {

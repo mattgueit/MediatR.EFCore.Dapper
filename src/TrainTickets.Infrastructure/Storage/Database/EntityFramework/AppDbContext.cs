@@ -1,8 +1,8 @@
-﻿using TrainTickets.Core.Journeys;
-using TrainTickets.Core.Passengers;
-using TrainTickets.Core.Tickets;
-using TrainTickets.Core.Trains;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using TrainTickets.Core.Domain.Tickets;
+using TrainTickets.Core.Domain.Trains;
+using TrainTickets.Core.Domain.Journeys;
+using TrainTickets.Core.Domain.Passengers;
 
 namespace TrainTickets.Infrastructure.Storage.Database.EntityFramework
 {

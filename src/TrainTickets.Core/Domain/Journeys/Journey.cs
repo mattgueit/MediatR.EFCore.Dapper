@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TrainTickets.Core.Journeys
+namespace TrainTickets.Core.Domain.Journeys
 {
     public class Journey
     {
