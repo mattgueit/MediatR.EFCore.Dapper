@@ -8,5 +8,6 @@ namespace TrainTickets.Core.Domain.Tickets
         public int Id { get; set; }
         public int PassengerId { get; set; }
         public int JourneyId { get; set; }
+        public DateTime ExpiryDate { get; set; }
     }
 }

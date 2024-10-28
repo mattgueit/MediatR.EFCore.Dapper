@@ -17,5 +17,12 @@ namespace TrainTickets.Infrastructure.Storage.Database.EntityFramework
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Train> Trains { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Ticket>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+        }
     }
 }

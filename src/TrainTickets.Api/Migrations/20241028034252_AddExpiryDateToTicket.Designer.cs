@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TrainTickets.Infrastructure.Storage.Database.EntityFramework;
@@ -11,9 +12,11 @@ using TrainTickets.Infrastructure.Storage.Database.EntityFramework;
 namespace TrainTickets.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241028034252_AddExpiryDateToTicket")]
+    partial class AddExpiryDateToTicket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace TrainTickets.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Journeys", (string)null);
+                    b.ToTable("Journeys");
                 });
 
             modelBuilder.Entity("TrainTickets.Core.Domain.Passengers.Passenger", b =>
@@ -63,7 +66,7 @@ namespace TrainTickets.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Passengers", (string)null);
+                    b.ToTable("Passengers");
                 });
 
             modelBuilder.Entity("TrainTickets.Core.Domain.Tickets.Ticket", b =>
@@ -85,7 +88,7 @@ namespace TrainTickets.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("TrainTickets.Core.Domain.Trains.Train", b =>
@@ -105,7 +108,7 @@ namespace TrainTickets.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trains", (string)null);
+                    b.ToTable("Trains");
                 });
 #pragma warning restore 612, 618
         }

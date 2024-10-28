@@ -1,6 +1,6 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TrainTickets.Core.Domain.Tickets;
-using TrainTickets.Infrastructure.Storage.Database.EntityFramework;
 
 namespace TrainTickets.Api.Controllers
 {
@@ -8,33 +8,32 @@ namespace TrainTickets.Api.Controllers
     [Route("[controller]")]
     public class TicketsController : ControllerBase
     {
-        private readonly ITicketsRepository _ticketsRepository;
-        private readonly AppDbContext _appDbContext;
+        private readonly IMediator _mediator;
         private readonly ILogger<TicketsController> _logger;
 
         public TicketsController(
-            ITicketsRepository ticketsRepository,
-            AppDbContext appDbContext,
+            IMediator mediator,
             ILogger<TicketsController> logger
         )
         {
-            _ticketsRepository = ticketsRepository;
-            _appDbContext = appDbContext;
+            _mediator = mediator;
             _logger = logger;
         }
 
-        [HttpGet("{ticketId}", Name = "GetTicket")]
+        [HttpGet("{ticketId}")]
         public async Task<Ticket> Get([FromRoute] int ticketId)
         {
-            return await this._ticketsRepository.GetByIdAsync(ticketId) ?? throw new Exception($"No such ticket with Id {ticketId}.");
+            var query = new GetTicketQuery(ticketId);
+
+            return await _mediator.Send(query) ?? throw new Exception($"No such ticket with Id: {ticketId}");
         }
 
-        [HttpPost(Name = "CreateTicket")]
-        public void Create([FromBody] Ticket ticket)
+        [HttpPost]
+        public async Task<Ticket> Create([FromBody] CreateTicketCommand request)
         {
-            _appDbContext.Tickets.Add(ticket);
+            var result = await _mediator.Send(request) ?? throw new Exception("Failed to create ticket.");
 
-            _appDbContext.SaveChanges();
+            return result;
         }
     }
 }
